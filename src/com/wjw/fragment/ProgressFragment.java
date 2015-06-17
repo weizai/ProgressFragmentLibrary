@@ -10,13 +10,10 @@ import android.widget.FrameLayout;
 import com.example.myfragmenttest.R;
 
 public abstract class ProgressFragment extends Fragment {
-	public abstract void setSelfContent();
 	private ViewGroup rootGroupView;
 	public abstract void onEmptyClick();
 	
-	public void setRealContentView(View view) {
-		addToRootView(view);
-	}
+	public abstract int setContentViewRes();
 
 	private void addToRootView(View view) {
 		ViewGroup viewGroup = (ViewGroup) getView().findViewById(
@@ -24,7 +21,11 @@ public abstract class ProgressFragment extends Fragment {
 		viewGroup.addView(view);
 	}
 
-	public void setRealContentView(int layoutId) {
+	public void setRealContentView() {
+		int layoutId = setContentViewRes();
+		if(layoutId == 0)
+			throw new RuntimeException("please set layoutId...");
+		
 		View view = LayoutInflater.from(getActivity()).inflate(layoutId,
 				new FrameLayout(getActivity()), true);
 		addToRootView(view);
@@ -33,7 +34,7 @@ public abstract class ProgressFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		setSelfContent();
+		setRealContentView();
 		registEmptyClick();
 	}
 

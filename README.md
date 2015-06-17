@@ -2,7 +2,9 @@
 
 it is simple to show empty or progressing when using fragment, all you should do is to extent ProgressFragment
 
+
 public class DemoFragment extends ProgressFragment {
+
   	@Override
   	public void onEmptyClick() {
   		
@@ -12,4 +14,5 @@ public class DemoFragment extends ProgressFragment {
   	public int setContentViewRes() {
   		return R.layout.test;   // show your own contentView
   	}
+  	
 }
